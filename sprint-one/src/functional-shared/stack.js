@@ -38,7 +38,7 @@ stackMethods.pop = function() {
     delete this.storage[this.length - 1];
 
     this.length--;
-    //return the saved result 
+    //return the saved
     return result;
 
   } else {
