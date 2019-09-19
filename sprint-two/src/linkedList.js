@@ -8,31 +8,63 @@
 
 
 var LinkedList = function() {
+
+  //contains all the nodes
   var list = {};
+  let length = 0;
+
+  //poionts to first node in list
   list.head = null;
+
+  //points to last node in list
   list.tail = null;
 
+
+  //takes a value and adds it to the end of the list
   list.addToTail = function(value) {
+    list[length] = Node(value);
     //add value to end of list
     //assign tail the last value. 
-    list[Node(value)];
+    
+    //if tail = null, 
+    //assign tail to node.value
     list.tail = value;
+
+    length++; 
   };
 
+  //removes the first node from the list and returns its value
   list.removeHead = function() {
+  //if head is equal to a value, 
+  //create a temp var to save that value
+  //delete that node
+  //assign head to next value
+  //delete that first node 
+
+  length--;
+  //return the value
+
   };
 
+  //use iteration
   list.contains = function(target) {
+    //iterative through the list to search for target
+
+    //nodes are objects, so us
+    //if node.value === target
+    //
   };
 
   return list;
 };
 
 //node constructor function
+//each node is an obejct
 var Node = function(value) {
   var node = {};
 
   node.value = value;
+
   //points to the next linked node
   node.next = null;
 
