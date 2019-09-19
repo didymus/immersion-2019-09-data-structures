@@ -67,7 +67,9 @@ var LinkedList = function() {
   list.contains = function(target) {
     //iterative through the list to search for target
     let currentNode = list.head;
-
+    
+    //nodes are objects, so us
+    //if node.value === target
 
     while (currentNode !== null) {
       if (currentNode.value === target) {
@@ -80,9 +82,6 @@ var LinkedList = function() {
       }
       currentNode = currentNode.next;
     }
-    //nodes are objects, so us
-    //if node.value === target
-    //
   };
 
   return list;
