@@ -22,13 +22,14 @@ var LinkedList = function() {
 
   //takes a value and adds it to the end of the list
   list.addToTail = function(value) {
-    list[length] = Node(value);
-    //add value to end of list
-    //assign tail the last value. 
-    
-    //if tail = null, 
-    //assign tail to node.value
-    list.tail = value;
+    let newNode = Node(value);
+    list[length] = newNode; 
+    //if head is null, meaning its not assigned
+    if (list.head === null) {
+      list.head = newNode; 
+    }
+
+    list.tail = newNode;
 
     length++; 
   };
