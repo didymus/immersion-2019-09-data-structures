@@ -7,11 +7,13 @@ class Queue {
     this.tail = 0; 
   }
 
+  //enqueue(string) - Add a string to the back of the queue
   enqueue(value) {
     this.storage[this.tail] = value;
     this.tail++;
   };
 
+  //dequeue() - Remove and return the string at the front of the queue
   dequeue() {
     if (this.head <= this.tail) {
       let result = this.storage[this.head];
@@ -21,6 +23,7 @@ class Queue {
     }
   };
 
+  // size() - Return the number of items in the queue
   size() {
     if (this.tail - this.head <= 0) {
       return 0;
