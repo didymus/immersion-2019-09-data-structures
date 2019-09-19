@@ -28,17 +28,23 @@ var LinkedList = function() {
 
     //assign the newly created node to the list
     list[length] = newNode; 
-
+    
     //if head is null, meaning its not assigned, it equals the new node
     if (list.head === null) {
       list.head = newNode; 
+      length++;
+      //if head is aleady assigned, meaning there is a node in the list, 
+      //we want to assign that previous node's "next" value to reference
+      //the incoming node
+    } else {
+      //list[length - 1].next = list[length];
+      list.tail.next = newNode; 
     }
-
+    
     //assign the tail to the newly created node. 
     list.tail = newNode;
-
     //increase the length holder
-    length++;
+    return list; //$$$$
   };
 
   //removes the first node from the list and returns its value
@@ -48,16 +54,32 @@ var LinkedList = function() {
   //delete that node
   //assign head to next value
   //delete that first node 
-
-  length--;
-  //return the value
+    let removedHead = list.head.value;
+    let afterCurrentHead = list.head.next;
+    list.head = afterCurrentHead;
+    return removedHead;
+    length--;
+    //return the value
 
   };
 
   //use iteration
   list.contains = function(target) {
     //iterative through the list to search for target
+    let currentNode = list.head;
 
+
+    while (currentNode !== null) {
+      if (currentNode.value === target) {
+        return true;
+      }
+      //if iteterated throught the list of nodes, 
+      //there are no matches, and return
+      if (currentNode.next === null) {
+        return false;
+      }
+      currentNode = currentNode.next;
+    }
     //nodes are objects, so us
     //if node.value === target
     //
