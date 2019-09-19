@@ -22,16 +22,23 @@ var LinkedList = function() {
 
   //takes a value and adds it to the end of the list
   list.addToTail = function(value) {
+
+    //define new node 
     let newNode = Node(value);
+
+    //assign the newly created node to the list
     list[length] = newNode; 
-    //if head is null, meaning its not assigned
+
+    //if head is null, meaning its not assigned, it equals the new node
     if (list.head === null) {
       list.head = newNode; 
     }
 
+    //assign the tail to the newly created node. 
     list.tail = newNode;
 
-    length++; 
+    //increase the length holder
+    length++;
   };
 
   //removes the first node from the list and returns its value
