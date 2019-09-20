@@ -14,6 +14,7 @@ var Tree = function(value) {
   // an array containing a number of subtrees
   newTree.children = []; 
 
+  //put the treeMethods on the newTree
   _.extend(newTree, treeMethods);
 
   return newTree;
@@ -26,9 +27,12 @@ var treeMethods = {};
 //takes any value, sets that as the target of a node, 
 //and adds that node as a child of the tree
 treeMethods.addChild = function(value) {
-  let newChild = Tree(value);
-  this.children.push(newChild);
+
   //define newChild
+  let newChild = Tree(value);
+
+  //push newChild into the children array
+  this.children.push(newChild);
 
 };
 
@@ -40,18 +44,17 @@ treeMethods.contains = function(target) {
     return true;
   }
 
-  
+  //iterate over the children array
   for (let i = 0; i < this.children.length; i++) {
+
+    //use recursion to check if a child contains target
     if (this.children[i].contains(target)) {
+
       return true; 
     }
   } 
-  
+
   return false; 
-
-  //use recursion
-  //if 
-
 };
 
 
