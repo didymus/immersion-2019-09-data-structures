@@ -44,6 +44,10 @@ Graph.prototype.removeNode = function(node) {
       this.vertices.splice(i, 1);
     }
   }
+  while (this.edges[node].length) {
+    var adjacentNode = this.edges[node].pop();
+    this.removeEdge(adjacentNode, node);
+  }
 };
 
 
@@ -60,7 +64,7 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode) {
-    this.edges[toNode].push(fromNode);
+  this.edges[toNode].push(fromNode);
   this.edges[fromNode].push(toNode);
   //fromNode = Vertex 1, toNode is Vertex 2
   this.edgeCount++;
@@ -68,10 +72,48 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
+  //Does edges have an index of 'fromNode? is so, assign the varible index to 
+  //the index of toNode, else 
+  let index; 
+  let index2; 
+
+  if (this.edges[fromNode]) {
+    index = this.edges[fromNode].indexOf(toNode); 
+  } else {
+    index = -1; 
+  }
+
+  if (this.edges[toNode]) {
+    index2 = this.edges[toNode].indexOf(fromNode);
+  } else {
+    index2 = -1;
+  }
+  //splice the edge using index as the position: splice(index, 1)
+  if (index === -1) {
+    this.edges.splice(index, 1);
+  }
+  if (index2 === -1) {
+    this.edges.splice(index2, 1);
+  }
+
+  //decrease edgeCount--
+  this.edgeCount--;
+
+  //  let index2;
+  //  if(this.edges[toNode]){
+  //      index2 = this.edges[toNode].indexOf(fromNode);
+    
+//  } else {
+//      index2 = -1;
+//  }
 };
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
+  //iterate through the node list, and apply cb function
+  _.each(this.vertices, function(node) {
+    cb(node);
+  });
 };
 
 /*
