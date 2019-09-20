@@ -1,10 +1,10 @@
 // A linkedList class, in functional style, with the following properties:
-// [].head property, a linkedListNode instance
-// [].tail property, a linkedListNode instance
-// [].addToTail() method, takes a value and adds it to the end of the list
-// [].removeHead() method, removes the first node from the list and returns its value
-// [].contains() method, returns boolean reflecting whether or not the passed -in value is in the linked list
-// [] What is the time complexity of the above functions ?
+// [x].head property, a linkedListNode instance
+// [x].tail property, a linkedListNode instance
+// [x].addToTail() method, takes a value and adds it to the end of the list
+// [x].removeHead() method, removes the first node from the list and returns its value
+// [x].contains() method, returns boolean reflecting whether or not the passed -in value is in the linked list
+// [X] What is the time complexity of the above functions ? O(1), O(n), O(1), O(1), O(n)
 
 
 var LinkedList = function() {
@@ -49,37 +49,39 @@ var LinkedList = function() {
 
   //removes the first node from the list and returns its value
   list.removeHead = function() {
-  //if head is equal to a value, 
-  //create a temp var to save that value
-  //delete that node
-  //assign head to next value
-  //delete that first node 
-    let removedHead = list.head.value;
+
+  //create a var to save head value to return later
+  let removedHead = list.head.value;
+
+  //create a variable to hold value of next/replacement link
     let afterCurrentHead = list.head.next;
+
+    //assign head to the next link's value
     list.head = afterCurrentHead;
-    return removedHead;
-    length--;
+
     //return the value
+    return removedHead;
 
   };
 
   //use iteration
   list.contains = function(target) {
-    //iterative through the list to search for target
     let currentNode = list.head;
     
-    //nodes are objects, so us
-    //if node.value === target
-
+    //nodes are objects
+    //iterative through the list of nodes to search for target
     while (currentNode !== null) {
+
+      //if node.value === target return true
       if (currentNode.value === target) {
         return true;
       }
-      //if iteterated throught the list of nodes, 
-      //there are no matches, and return
+
+      //if there are no matches by the end of the link, return false
       if (currentNode.next === null) {
         return false;
       }
+
       currentNode = currentNode.next;
     }
   };
