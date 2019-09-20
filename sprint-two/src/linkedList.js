@@ -23,33 +23,37 @@ var LinkedList = function() {
   //takes a value and adds it to the end of the list
   list.addToTail = function(value) {
 
-    //define new node 
+    //define a new node object
     let newNode = Node(value);
 
-    //assign the newly created node to the list
+    //assign the newly created node to the list with a key of whatever length is set to
     list[length] = newNode; 
     
-    //if head is null, meaning its not assigned, it equals the new node
+    //if head is null, meaning its not assigned a node reference 
     if (list.head === null) {
-      list.head = newNode; 
-      length++;
-      //if head is aleady assigned, meaning there is a node in the list, 
-      //we want to assign that previous node's "next" value to reference
-      //the incoming node
-    } else {
-      //list[length - 1].next = list[length];
-      list.tail.next = newNode; 
-    }
-    
-    //assign the tail to the newly created node. 
-    list.tail = newNode;
-    //increase the length holder
-    return list; //$$$$
-  };
 
+      //assign it to refernce the new node
+      list.head = newNode; 
+
+      //incrase the length placeholder
+      length++;
+
+    } else {
+      //because we're adding new nodes from the back of the list,
+      ////we need to use tail's current reference node (which will become 2nd to last)
+      //and assign its 'next' to reference the incoming node
+      list.tail.next = newNode; 
+  }
+    
+    //assign the tail to reference to the newly created node. 
+    list.tail = newNode;
+    
+    return list; 
+  };
+  
   //removes the first node from the list and returns its value
   list.removeHead = function() {
-
+    
   //create a var to save head value to return later
   let removedHead = list.head.value;
 
