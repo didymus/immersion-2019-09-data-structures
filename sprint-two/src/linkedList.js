@@ -43,7 +43,7 @@ var LinkedList = function() {
       ////we need to use tail's current reference node (which will become 2nd to last)
       //and assign its 'next' to reference the incoming node
       list.tail.next = newNode; 
-  }
+    }
     
     //assign the tail to reference to the newly created node. 
     list.tail = newNode;
@@ -54,10 +54,10 @@ var LinkedList = function() {
   //removes the first node from the list and returns its value
   list.removeHead = function() {
     
-  //create a var to save head value to return later
-  let removedHead = list.head.value;
+    //create a var to save head value to return later
+    let removedHead = list.head.value;
 
-  //create a variable to hold value of next/replacement link
+    //create a variable to hold value of next/replacement link
     let afterCurrentHead = list.head.next;
 
     //assign head to the next link's value
