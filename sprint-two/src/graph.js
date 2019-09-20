@@ -28,20 +28,42 @@ Graph.prototype.addNode = function(node) {
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
+  for (let i = 0; i < this.vertices.length; i++) {
+    if (this.vertices[i] === node) {
+      return true; 
+    }
+  }
+
+  return false; 
 };
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
+  for (let i = 0; i < this.vertices.length; i++) {
+    if (this.vertices[i] === node) {
+      this.vertices.splice(i, 1);
+    }
+  }
 };
+
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
+  //if edges array at the index of fromNode + 1 = toNode
+  if (this.edges[fromNode++] === toNode || this.edges[toNode++] === fromNode) {
+    return true; 
+  }
+
+  return false; 
+
 };
 
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode) {
+    this.edges[toNode].push(fromNode);
+  this.edges[fromNode].push(toNode);
   //fromNode = Vertex 1, toNode is Vertex 2
-    //   this.edgeCount++;
+  this.edgeCount++;
 };
 
 // Remove an edge between any two specified (by value) nodes.
