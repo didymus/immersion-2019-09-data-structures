@@ -37,7 +37,7 @@ HashTable.prototype.insert = function(key, value) {
 
   console.log(bucket);
 
-  
+
 
 
     bucket.push([key, value]); 
@@ -79,6 +79,15 @@ HashTable.prototype.remove = function(key) {
   var index = getIndexBelowMaxForKey(key, this._limit);
 
   let bucket = this._storage.get(index) || []; 
+
+  for (var i = 0; i < bucket.length; i++) {
+    let tuple = bucket[i];
+    if (tuple[0] === key) { 
+      bucket.splice(i, 1);
+      return tuple[1];
+    }
+  }
+
 };
 
 
