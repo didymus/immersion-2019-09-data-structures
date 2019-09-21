@@ -1,119 +1,82 @@
 // Implement a graph class, in pseudoclassical style, with the following properties:
-// [] It is an undirected graph.It does not have to be ‘connected’.
-// [] An.addNode() method that takes a new node and adds it to the graph
-// [] A.contains() method that takes any node and returns a boolean reflecting whether it can be found in the graph
-// [] A.removeNode() method that takes any node and removes it from the graph, if present.All edges connected to that Node are removed as well.
-// [] An.addEdge() method that creates a edge(connection) between two nodes if they both are present within the graph
-// [] A.hasEdge() method that returns a boolean reflecting whether or not two nodes are connected
-// [] A.removeEdge() method that removes the connection between two nodes
-// [] A.forEachNode() method that traverses through the graph, calling a passed in function once on each node
-// [] What is the time complexity of the above functions ?
+// [x] It is an undirected graph.It does not have to be ‘connected’.
+// [x] An.addNode() method that takes a new node and adds it to the graph
+// [x] A.contains() method that takes any node and returns a boolean reflecting whether it can be found in the graph
+// [x] A.removeNode() method that takes any node and removes it from the graph, if present.All edges connected to that Node are removed as well.
+// [x] An.addEdge() method that creates a edge(connection) between two nodes if they both are present within the graph
+// [x] A.hasEdge() method that returns a boolean reflecting whether or not two nodes are connected
+// [x] A.removeEdge() method that removes the connection between two nodes
+// [x] A.forEachNode() method that traverses through the graph, calling a passed in function once on each node
+// [x] What is the time complexity of the above functions ?
 
 // Instantiate a new graph{
 var Graph = function() {
 
-  this.vertices = []; 
-  this.edges = []; 
-  this.edgeCount = 0;
-
+  //creating the nodes container 
+  this.nodes = {};  
 };
 
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node) {
-  this.vertices.push(node); 
-  this.edges[node] = []; 
 
-  
+    //assigning the nodes object, a key of node with a object value
+  this.nodes[node] = {};
 };
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
-  for (let i = 0; i < this.vertices.length; i++) {
-    if (this.vertices[i] === node) {
-      return true; 
-    }
-  }
 
-  return false; 
+    //does the nodes object contain the given node? returns boolean
+    return this.nodes[node] ? true : false; 
 };
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
-  for (let i = 0; i < this.vertices.length; i++) {
-    if (this.vertices[i] === node) {
-      this.vertices.splice(i, 1);
+
+    //iterate over the nodes 
+  for (let nodeKey in this.nodes) {
+    
+    //call the remove edge function on node
+      this.removeEdge(node, nodeKey);
     }
-  }
-  while (this.edges[node].length) {
-    var adjacentNode = this.edges[node].pop();
-    this.removeEdge(adjacentNode, node);
-  }
+    
+    //remove matching node from nodes object
+  delete this.nodes[node];
+
 };
 
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
-  //if edges array at the index of fromNode + 1 = toNode
-  if (this.edges[fromNode++] === toNode || this.edges[toNode++] === fromNode) {
-    return true; 
-  }
 
-  return false; 
-
+    //are the nodes next to eachother?
+  return this.nodes[fromNode][toNode] ? true : false; 
 };
 
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode) {
-  this.edges[toNode].push(fromNode);
-  this.edges[fromNode].push(toNode);
-  //fromNode = Vertex 1, toNode is Vertex 2
-  this.edgeCount++;
+
+    //assign each node a key of the other, and assign it to true
+    this.nodes[fromNode][toNode] = true; 
+    this.nodes[toNode][fromNode] = true; 
+
 };
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
-  //Does edges have an index of 'fromNode? is so, assign the varible index to 
-  //the index of toNode, else 
-  let index; 
-  let index2; 
-
-  if (this.edges[fromNode]) {
-    index = this.edges[fromNode].indexOf(toNode); 
-  } else {
-    index = -1; 
-  }
-
-  if (this.edges[toNode]) {
-    index2 = this.edges[toNode].indexOf(fromNode);
-  } else {
-    index2 = -1;
-  }
-  //splice the edge using index as the position: splice(index, 1)
-  if (index === -1) {
-    this.edges.splice(index, 1);
-  }
-  if (index2 === -1) {
-    this.edges.splice(index2, 1);
-  }
-
-  //decrease edgeCount--
-  this.edgeCount--;
-
-  //  let index2;
-  //  if(this.edges[toNode]){
-  //      index2 = this.edges[toNode].indexOf(fromNode);
     
-//  } else {
-//      index2 = -1;
-//  }
+    //delete each nodes reference to the other
+    delete this.nodes[fromNode][toNode];
+    delete this.nodes[toNode][fromNode];
 };
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
-  //iterate through the node list, and apply cb function
-  _.each(this.vertices, function(node) {
+
+  //iterate through the nodes, and apply cb function to each node
+    for (let node in this.nodes) {
     cb(node);
-  });
+    }
 };
 
 /*
