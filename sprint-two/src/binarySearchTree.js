@@ -25,25 +25,36 @@ var BinarySearchTree = function (value) {
 let biTreeMethods = {}; 
 
 biTreeMethods.insert = function (value) {
-    let currentNode = BinarySearchTree(value);
-//accepts a value and places it in the tree in the correct position.
-//inputing a value
-//if its less than node, veer left
-//if its greater than node, veer right
-
+  let currentNode = BinarySearchTree(value);
+  //accepts a value and places it in the tree in the correct position.
+  //inputing a value
+  //if its less than node, veer left
+  //if its greater than node, veer right
+  if (value < this.value && this.left) {
+    this.left.insert(value);
+  }
+  if (value < this.value && !this.left) {
+    this.left = new BinarySearchTree(value);
+  }
+  if (value > this.value && this.right) {
+    this.right.insert(value);
+  }
+  if (value > this.value && !this.right) {
+    this.right = new BinarySearchTree(value);
+  }
 
   // if value < node.value:
-  if (value < this.value) {
-    // If the left child does not exist,
-    if (!this.left) {
-      this.; 
-    }
-  }
-  if (value > this.value) {
-    if (!this.right) {
-      this.right = value; 
-    }
-  }
+  //   if (value < this.value) {
+  //     // If the left child does not exist,
+  //     if (!this.left) {
+  //       this.; 
+  //     }
+  //   }
+  //   if (value > this.value) {
+  //     if (!this.right) {
+  //       this.right = value; 
+  //     }
+  //   }
   //      insert the value as the left child:
   // if node.leftChild is None:
   //    node.leftChild = TreeNode(value)
@@ -55,19 +66,48 @@ biTreeMethods.insert = function (value) {
 biTreeMethods.contains = function (value) {
 //returns a boolean
 //  Inspect the value at the node.
-  if (this.value = value) {
+//  If we’ve found the value we’re looking for, great!
+  if (this.value === value) {
     return true; 
   }
-//  If we’ve found the value we’re looking for, great!
-//  If the value we’re looking for is less than the current node, search for it in its left subtree.
-//  If the value we’re looking for is greater than the current node, search for it in its right subtree.
+
+  //  If the value we’re looking for is less than the current node, search for it in its left subtree.
+  if (value < this.value) {
+      if(!this.left){
+          return false; 
+      } else {
+          return this.left.contains(value);
+      }
+  } 
+
+
+  if (value > this.value) {
+      if (!this.right) {
+          return false;
+      } else {
+    //  If the value we’re looking for is greater than the current node, search for it in its right subtree.
+        return this.right.contains(value);
+      }
+  }
+
+  return false; 
 };
 
 biTreeMethods.depthFirstLog = function (callback) {
 //accepts a callback and executes it on every value contained in the tree
-for (let node in this.newTree) {
-    callback(node);
-}
+//   for (let node in this.newTree) {
+//     callback(node);
+//   }
+
+  callback(this.value);
+
+
+  if (this.left) {
+    this.left.depthFirstLog(callback);
+  }
+  if (this.right) {
+    this.right.depthFirstLog(callback);
+  }
 
 };
 
