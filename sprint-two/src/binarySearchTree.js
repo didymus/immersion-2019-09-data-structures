@@ -7,19 +7,35 @@
 // [ ] What is the time complexity of the above functions?
 // Use case: Given a list of a million numbers, write a function that takes a new number and returns the closest number in the list using your BST. 
 // Profile this against the same operation using an array.
-class BinarySearchTree {
-    constructor() {
-        this.left = [];
-        this.right = [];
-        //property is different from method
-    }
-    insert(value) {
-    }
-    contains(value) {
-    }
-    depthFistLong(callback) {
-    }
-}
+var BinarySearchTree = function () {
+    
+    this.left = []; //lower than the current value
+    this.right = [];
+
+    var newTree = {};
+
+    
+    _.extend(newTree, biTreeMethods)
+    return newTree; 
+};
+
+
+let biTreeMethods ={}; 
+
+biTreeMethods.insert = function (value) {
+//accepts a value and places it in the tree in the correct position.
+
+};
+
+biTreeMethods.contains = function (value) {
+    //returns a boolean
+};
+
+biTreeMethods.depthFirstLog = function (callback) {
+//accepts a callback and executes it on every value contained in the tree
+
+};
+
 
 
 
