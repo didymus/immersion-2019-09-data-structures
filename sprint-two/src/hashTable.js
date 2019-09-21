@@ -24,23 +24,26 @@ var HashTable = function() {
 HashTable.prototype.insert = function(key, value) {
   var index = getIndexBelowMaxForKey(key, this._limit);
 
-  //assign the key to the index
+  //assign the key to the index of storage 
+  //if that storage index (bucket)if empty, push an array of key and value
+  //if that storage 
   //assing value to storage at that index
 
 
 
   //make a variable that accesses 'a bucket'
   //bucket should be an array 
-  let bucket = this._storage.get(index); //|| []; 
+  let bucket = this._storage.get(index) || []; 
 
-  let filled = false; 
+  console.log(bucket);
+
   
-  if (filled === true) {
+
+
     bucket.push([key, value]); 
     //use set
     this._storage.set(index, bucket);
-  }
-
+  
   //iterate through the bucket 
   for (var i = 0; i < bucket.length; i ++) {
   
@@ -57,13 +60,25 @@ HashTable.prototype.insert = function(key, value) {
 HashTable.prototype.retrieve = function(key) {
   var index = getIndexBelowMaxForKey(key, this._limit);
 
-  let bucket = this._storage.get(index);
+  let bucket = this._storage.get(index) || []; 
+
+
+  for (var i = 0; i < bucket.length; i++) {
+    let tuple = bucket[i];
+    if (tuple[0] === key) {
+      // tuple[1] = value; 
+      return tuple[1];
+    }
+  }
+    
+
+
 };
 
 HashTable.prototype.remove = function(key) {
   var index = getIndexBelowMaxForKey(key, this._limit);
 
-  let bucket = this._storage.get(index);
+  let bucket = this._storage.get(index) || []; 
 };
 
 
