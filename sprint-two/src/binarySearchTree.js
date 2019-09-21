@@ -9,8 +9,26 @@
 // Profile this against the same operation using an array.
 
 
-var BinarySearchTree = function(value) {
+var BinarySearchTree = function () {
+    
+    this.left = [];
+    this.right = []; 
+  //property is different from method
 };
+
+BinarySearchTree.prototype.insert = function(value) {
+
+  };
+
+BinarySearchTree.prototype.contains = function (value) {
+
+  };
+
+BinarySearchTree.prototype.depthFistLong = function (callback) {
+
+  };
+
+
 
 /*
  * Complexity: What is the time complexity of the above functions?
