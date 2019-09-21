@@ -8,7 +8,7 @@
 // [ ] A .retrieve() method
 // [ ] A .remove() method
 // [ ] What is the time complexity of the above functions?
-//insert O(1), retrieve O(1)
+//O(1) for insert O(1), retrieve O(1), remove
 // [ ] Using your understanding of hash tables, refactor your set implementation from above to run in constant time
 
 
