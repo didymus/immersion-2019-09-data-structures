@@ -48,8 +48,7 @@ HashTable.prototype.insert = function(key, value) {
   for (var i = 0; i < bucket.length; i ++) {
   
     if (bucket[i][0] === key) {
-      bucket[i][1] = value; 
-      filled = true; 
+      bucket[i][1] = value;  
     }
   }
 
@@ -65,8 +64,7 @@ HashTable.prototype.retrieve = function(key) {
 
   for (var i = 0; i < bucket.length; i++) {
     let tuple = bucket[i];
-    if (tuple[0] === key) {
-      // tuple[1] = value; 
+    if (tuple[0] === key) { 
       return tuple[1];
     }
   }
