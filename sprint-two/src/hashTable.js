@@ -16,9 +16,7 @@
 var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
-
-  //create a property of length to check size of hashtable
-  //
+  this.size = 0; 
 };
 
 HashTable.prototype.insert = function(key, value) {
@@ -29,29 +27,27 @@ HashTable.prototype.insert = function(key, value) {
   //if that storage 
   //assing value to storage at that index
 
-
-
   //make a variable that accesses 'a bucket'
   //bucket should be an array 
   let bucket = this._storage.get(index) || []; 
 
-  console.log(bucket);
-
-
-
-
-    bucket.push([key, value]); 
-    //use set
-    this._storage.set(index, bucket);
+  bucket.push([key, value]); 
+ 
+  console.log(this.size);
+  //use set
+  this._storage.set(index, bucket);
   
   //iterate through the bucket 
   for (var i = 0; i < bucket.length; i ++) {
-  
     if (bucket[i][0] === key) {
       bucket[i][1] = value;  
     }
   }
 
+  this.size++; 
+  if (this.size / this._limit >= .75){
+     this.resize(this._limit * 2); 
+  }
   //if the key is at the 0 index, 
   //set value to 1st index
 };
@@ -61,34 +57,75 @@ HashTable.prototype.retrieve = function(key) {
 
   let bucket = this._storage.get(index) || []; 
 
-
   for (var i = 0; i < bucket.length; i++) {
     let tuple = bucket[i];
     if (tuple[0] === key) { 
       return tuple[1];
     }
   }
-    
-
-
 };
-
 HashTable.prototype.remove = function(key) {
   var index = getIndexBelowMaxForKey(key, this._limit);
 
   let bucket = this._storage.get(index) || []; 
-
   for (var i = 0; i < bucket.length; i++) {
     let tuple = bucket[i];
     if (tuple[0] === key) { 
       bucket.splice(i, 1);
-      return tuple[1];
+      //took our return tuple here because it prematurely eneded the code
+      //not allowing the below decrementer and resize call 
     }
   }
 
+  this.size--;
+  if (this.size <= (.25 * this._limit) && this._limit > 8){
+    this.resize(this._limit / 2); 
+ }
 };
 
+// create resize method/function 
+HashTable.prototype.resize = function (newLimit){
+  
+  //assign the limit to the new one
+  this._limit = newLimit;
+  
+  //hold all the old values and 
+  let oldHashStorage = []; 
+  
+  //iterate over the original storage, and hold all the old values 
+  this._storage.each((bucket, index, storage) => {
+    
+    oldHashStorage.push(bucket); 
+    
+    //if bucket is not undefined/empty
+    if (oldHashStorage.length === storage.length){
 
+      //create a new storage array based off the new limit 
+      this._storage = LimitedArray(this._limit)
+      
+      //reset the size
+      this.size = 0; 
+    }
+  }); 
+  
+  //create a new hashtable with them spread out 
+    //iterate over the old values 
+    oldHashStorage.forEach((bucket, index) => {
+    //if the index contanins value 
+      if (bucket){
+        //loop through the bucket
+        for (var i = 0; i < bucket.length; i++) {
+          //create varibles to designate each tuple its key and value
+          let tuple = bucket[i];
+          let val = tuple[1];
+          let key = tuple[0]
+          //re-insert them into the empty storage array that has been setup 
+          //with the new limit 
+          this.insert(key, val);
+        }
+      }
+    })
+}
 /*
  * Complexity: What is the time complexity of the above functions?
  */

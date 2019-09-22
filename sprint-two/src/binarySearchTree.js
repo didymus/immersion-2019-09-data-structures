@@ -8,14 +8,7 @@
 // [X] What is the time complexity of the above functions? All O(log n)
 // Use case: Given a list of a million numbers, write a function that takes a new number and returns the closest number in the list using your BST. 
 // Profile this against the same operation using an array.
-<<<<<<< HEAD
-var BinarySearchTree = function () {
-    
-    this.left = []; //lower than the current value
-    this.right = []; // higher than the current value.
-=======
 var BinarySearchTree = function (value) {
->>>>>>> a5e582710dc89265c1184510376fd8158fd7603f
 
 
     var newTree = {};
