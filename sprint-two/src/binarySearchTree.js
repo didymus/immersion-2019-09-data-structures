@@ -10,7 +10,7 @@
 var BinarySearchTree = function () {
     
     this.left = []; //lower than the current value
-    this.right = [];
+    this.right = []; // higher than the current value.
 
     var newTree = {};
 
